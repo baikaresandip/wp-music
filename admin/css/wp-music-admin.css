@@ -1,0 +1,18 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ .musicinfo label {
+    padding-bottom: .3em;
+    display: block;
+}
+.musicinfo .row.field {
+    margin-bottom: 1em;
+    width: 48%;
+    display: inline-block;
+}
+
+.musicinfo .field.row.even {
+    margin-left: 15px;
+}
