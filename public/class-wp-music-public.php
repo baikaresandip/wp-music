@@ -173,10 +173,10 @@ class Wp_Music_Public {
 			$output.= '<div class="pagination">';
 			$big = 999999999; // need an unlikely integer
 			$output.= paginate_links( array(
-				'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-				'format' => '?paged=%#%',
-				'current' => max( 1, get_query_var('paged') ),
-				'total' => $musics_query->max_num_pages //$q is your custom query
+				'base' 		=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+				'format' 	=> '?paged=%#%',
+				'current' 	=> max( 1, get_query_var('paged') ),
+				'total' 	=> $musics_query->max_num_pages //$q is your custom query
 			) );
 			$output.= '</div>';
 
@@ -184,7 +184,7 @@ class Wp_Music_Public {
 
 			$output.= '</div>';
 		}else{
-			$output.= '<p>'. __( 'No Musics founds.' ) .'</p>';
+			$output.= '<p>'. __( 'No Musics founds.', 'wp-music' ) .'</p>';
 		}
 		$output.= '</div>';
 
