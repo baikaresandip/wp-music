@@ -148,11 +148,25 @@ function get_music_meta_by_id( $post_id ){
 	return $music_data;
 }
 
+/**
+ * Get music price with curreny
+ * 
+ * @param 	float 	$price	Price of music 	 
+ * @author 	Sandip Baikare
+ * @since 	1.0.0
+ */
 function get_price_with_currency( $price = 0 ){
 	$currency = wpm_currency_symbol();	 
 	return sprintf("%s %01.2f", $currency, $price);  
 }
 
+/**
+ * Get music meta information
+ * 
+ * @param  int $music_id 	Music Post ID
+ * @author Sandip Baikare
+ * @since 1.0.0
+ */
 function get_all_music_meta( $music_id ){
 	$output = '';	
 	if ( ! $music_id )
@@ -218,6 +232,27 @@ function get_all_music_meta( $music_id ){
 					$output.= 	get_price_with_currency( esc_attr( $music_meta['price'] ) );
 				$output.= 	'</span>';
 			$output.= 	'</li>';
+
+			// Show Tags on List view and details page
+			$view = wpm_get_option('music_view', 'list-view');
+			if( 'list-view' == $view || is_single( ) ){
+				$output.= 	'<li class="composer">';
+					$output.= 	'<span class="mleft">';
+						$output.= 	__('Genre: ', 'wp-music');
+					$output.= 	'</span>';
+					$tags = get_the_terms( $music_id, 'genre');
+
+					//$output.= 	print_r( $tags, 1 );
+					$output.= 	'<span class="mright">';
+						if( !empty( $tags ) ){
+							foreach ($tags as $key => $term) {
+								$term_link = get_term_link( $term );
+								$output.= '<span class="tag"><a href="' . esc_url( $term_link ) . '">' . $term->name . '</a></span>';
+							}
+						}
+					$output.= 	'</span>';
+				$output.= 	'</li>';
+			}
 
 			// Show Tags on List view and details page
 			$view = wpm_get_option('music_view', 'list-view');

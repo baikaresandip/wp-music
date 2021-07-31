@@ -21,10 +21,14 @@
 
 .music-item ul.music-meta {
     padding: 0;
+    margin: 0;
     list-style: none;
     font-size: 14px;
 }
-.music-item .music-meta span.mleft {
+ul.music-meta li{
+    margin: 0;
+}
+.music-meta span.mleft {
     font-weight: 700;
 }
 .music-content { 
@@ -56,6 +60,9 @@
     margin-right: 5px;
     color: #fff;
     font-size: 13px;
+}
+.mright span.tag a{
+    color: #fff;
 }
 
 

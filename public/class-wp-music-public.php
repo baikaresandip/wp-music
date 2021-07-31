@@ -105,26 +105,29 @@ class Wp_Music_Public {
 	 * 
 	 * Create a [music] shortcode to shoe the music on the pages
 	 * 
+	 * @param array 	$atts Shortcode Attributes
 	 * @author Sandip Baikare
 	 * @since 1.0.0
 	 */
 	public function music_shortcode( $atts ) {
 		$atts = shortcode_atts( array(
-			'genre' => '',
-			'year' => date('Y')
+			'genre' 		=> '',
+			'hide_title' 	=> false,
+			//'year' 			=> date('Y')
 		), $atts );
 
-		$output = '';
-
+		$output = $termname = '';
 		
-		global $post;
+		global $post, $paged;
+    	$music_per_page = wpm_get_option('per_page', 3);
 		$music_args = array(
 			'post_type' 		=> 'music',
-			'posts_per_page' 	=> 5,
-			//'offset'         	=> 1				
+			'order' 			=> 'ASC', 
+			'paged' 			=> $paged,
+			'showposts' 		=> $music_per_page, 				
 		);
 
-		if( isset( $atts['genre'] ) ){
+		if( intval( esc_attr( $atts['genre'] ) ) ){
 			$music_args = array_merge(
 				$music_args,
 				array(
@@ -137,28 +140,45 @@ class Wp_Music_Public {
 						)
 					)
 				);
+			$termname = sprintf(' %s %s ', __('with Genre: ') , get_term( $atts['genre'] )->name);
 		}
-
-		$musics = get_posts( $music_args ); 
-		//print_r($music_args);
+			
+		$musics_query = new WP_Query( $music_args );	
+		$total_found_posts = $musics_query->found_posts;
+		$total_page = ceil($total_found_posts / $music_per_page);
 		
 		$output.= '<div class="musics-wrapper">';
-		if ( $musics ) {
+			// Hide Title 
+			if( ! $atts['hide_title'] ) 
+				$output.= sprintf('<h2 class="musics-title">%s %s</h2>', __( 'Musics', 'wp-music' ), $termname);
+				//$output.= '<h2 class="musics-title"> '. __( 'Musics', 'wp-music' )  . $termname . '</h2>';
+
+		if ( $musics_query ) {
 			$view = wpm_get_option('music_view', 'list-view');
 			$output.= '<div class="musics-list ' . $view . '">';
-			foreach ( $musics as $music ) : 
-				setup_postdata( $music );
+			while($musics_query->have_posts()) : $musics_query->the_post();
+				setup_postdata( $post );
 				//$output.= print_r($music->ID, true);
-				$output.= 	'<div class="music-item music-' . $music->ID . '">';
+				$output.= 	'<div class="music-item music-' . $post->ID . '">';
 				$output.= 	'	<div class="image">
-									<img class="music-thumb" src="'. get_the_post_thumbnail_url($music->ID, array(300, 300)).'" alt="'. get_the_title($music->ID).'" />
+									<img class="music-thumb" src="'. get_the_post_thumbnail_url($post->ID, array(300, 300)).'" alt="'. get_the_title($post->ID).'" />
 								</div>
 								<div class="music-content">
-									<h4><a class="music-link" href="'. get_the_permalink($music->ID).'">'. get_the_title($music->ID).'</a></h4>';									
-								$output.= 	get_all_music_meta($music->ID);
+									<h4><a class="music-link" href="'. get_the_permalink($post->ID).'">'. get_the_title($post->ID).'</a></h4>';									
+								$output.= 	get_all_music_meta($post->ID);
 								$output.= 	'</div>';
 				$output.= 	'</div>';
-			endforeach;
+			endwhile;
+
+			$output.= '<div class="pagination">';
+			$big = 999999999; // need an unlikely integer
+			$output.= paginate_links( array(
+				'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+				'format' => '?paged=%#%',
+				'current' => max( 1, get_query_var('paged') ),
+				'total' => $musics_query->max_num_pages //$q is your custom query
+			) );
+			$output.= '</div>';
 
 			wp_reset_postdata();
 
@@ -175,6 +195,7 @@ class Wp_Music_Public {
 	/**
 	 * Append Music Meta to the Single Music Page
 	 * 
+	 * @param string $content 	Post Content 
 	 * @author Sandip Baikare
 	 * @since 1.0.0
 	 */
