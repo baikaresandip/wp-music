@@ -30,9 +30,12 @@ Shortcodes will be used in any pages.
 ## Screenshots
 
 ![Music List View](/images/musics-list-view.png)
+*Figure: Music List View with pagination via shortcode*
 
 ![Music Grid View](/images/musics-grid-view.png)
+*Figure: Music Grid View with pagination via shortcode*
 
-![Music Music settings](/images/WP-Music-settings.png)
+![Music Music settings](/images/WP-Music-Settings.png)
+*Figure: Music setting API admin screen*
 
 
