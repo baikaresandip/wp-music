@@ -72,7 +72,7 @@ class Wp_Music {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'wp-music';
+		$this->plugin_name = 'wp-musics';
 
 		$this->load_dependencies();
 		$this->set_locale();

@@ -14,8 +14,8 @@
  *
  * @wordpress-plugin
  * Plugin Name:       WP Music
- * Plugin URI:        https://github.com/baikaresandip/wp-music/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin URI:        https://github.com/baikaresandip/wp-musics/
+ * Description:       This plugin will help you to lists out the music derectory. You can create music directory by using this plugin.
  * Version:           1.0.0
  * Author:            Baikare Sandip
  * Author URI:        https://github.com/baikaresandip
@@ -41,7 +41,7 @@ define( 'WP_MUSIC_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wp-music-activator.php
  */
-function activate_wp_music() {
+function activate_wp_musics() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-music-activator.php';
 	Wp_Music_Activator::activate();
 }
@@ -50,13 +50,13 @@ function activate_wp_music() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-wp-music-deactivator.php
  */
-function deactivate_wp_music() {
+function deactivate_wp_musics() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-music-deactivator.php';
 	Wp_Music_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wp_music' );
-register_deactivation_hook( __FILE__, 'deactivate_wp_music' );
+register_activation_hook( __FILE__, 'activate_wp_musics' );
+register_deactivation_hook( __FILE__, 'deactivate_wp_musics' );
 
 /**
  * The core plugin class that is used to define internationalization,
