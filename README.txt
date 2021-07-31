@@ -1,7 +1,7 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+=== WP Music ===
+Contributors: (baikare.sandeep-1)
 Donate link: https://github.com/baikaresandip
-Tags: comments, spam
+Tags: music, posttype
 Requires at least: 3.0.1
 Tested up to: 3.4
 Stable tag: 4.3

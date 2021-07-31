@@ -117,6 +117,11 @@ class Wp_Music {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-music-admin.php';
 
 		/**
+		 * The class is responsible for setting page 
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/admin-setting-page.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
@@ -159,7 +164,6 @@ class Wp_Music {
 
 		// Add menu item
 		$this->loader->add_action( 'init', $plugin_admin, 'wpm_create_music_post_type' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wpm_add_plugin_admin_menu' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wpm_music_notice_meta_box' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_music_info_meta_box_data' );
 		$this->loader->add_action( 'delete_post', $plugin_admin, 'wpm_delete_music_meta' );
@@ -183,6 +187,8 @@ class Wp_Music {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_shortcode( 'music',$plugin_public, 'music_shortcode' );
+		$this->loader->add_action( 'the_content', $plugin_public, 'append_music_meta' );
 
 	}
 

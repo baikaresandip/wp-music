@@ -2,3 +2,75 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+
+  
+.musics-list .music-item {    
+    margin-bottom: 2%;
+    margin: 5px;
+    border: 1px solid #aeaeae;
+}
+.musics-list.grid-view .music-item {
+    display: inline-block;
+    height: auto;
+    width: 31%;
+    min-height: 400px;
+    vertical-align: top;
+    height: auto;
+}
+
+.music-item ul.music-meta {
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+}
+.music-item .music-meta span.mleft {
+    font-weight: 700;
+}
+.music-content { 
+    padding: 10px;
+}
+
+/* List View  */
+.list-view .music-item {
+    width: 100%;
+    display: inline-block;
+}
+.list-view .image {
+    float: left;
+}
+.list-view .music-content {    
+    padding-left: 20px;
+}
+.list-view .image, 
+.list-view .music-content {
+    width: 50%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.mright span.tag {
+    padding: 2px 9px;
+    background-color: #5294df;
+    border-radius: 20px;
+    margin-right: 5px;
+    color: #fff;
+    font-size: 13px;
+}
+
+
+@media (max-width: 1024px){
+    .musics-list.grid-view .music-item {
+        width: 47%;
+    }
+}
+
+@media (max-width: 767px){
+    .musics-list.grid-view .music-item {
+        width: 100%;
+    }
+    .list-view .image, 
+    .list-view .music-content {
+        width: 100%;
+    }
+}

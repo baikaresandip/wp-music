@@ -99,23 +99,6 @@ class Wp_Music_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-music-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
-	
-	/**
-	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
-	 *
-	 * @since    1.0.0
-	 */
-
-	public function wpm_add_plugin_admin_menu() {
-		add_submenu_page( 
-			'edit.php?post_type=music', 
-			__( 'WP Music Settings', 'wp-music' ),
-			__( 'Settings', 'wp-music' ),
-			'manage_options', 
-			'setting-wp-music', 
-			array($this, 'wpm_display_plugin_setup_page')
-		);
-	}
 
 	/**
 	 * Add settings action link to the plugins page.
@@ -132,18 +115,10 @@ class Wp_Music_Admin {
 	}
 
 	/**
-	 * Render the settings page for this plugin.
-	 *
-	 * @since    1.0.0
-	 */
-
-	public function wpm_display_plugin_setup_page() {
-		include_once( 'partials/wp-music-admin-setting-display.php' );
-	}
-
-	/**
-	 * Create a Music Post type 
+	 * Create a Music custom Post type 
 	 * 
+	 * @author Sandip Baikare
+	 * @since 1.0.0
 	 */
 	public function wpm_create_music_post_type(){
 		// Create a custom post type music
@@ -180,8 +155,10 @@ class Wp_Music_Admin {
 				),
 				'public'      => true,
 				'has_archive' => true,
+				'menu_icon'   => 'dashicons-format-audio',
 				'has_archive' => true,
-				'rewrite'     => array( 'slug' => 'musics' ), // my custom slug
+				'rewrite'     => array( 'slug' => 'musics' ), 
+				'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' )
 			)
 		);
 
@@ -240,7 +217,7 @@ class Wp_Music_Admin {
 	 * Show Music Custom Post Metabox
 	 * 
 	 * @author Sandip Baikare
-	 * @since 1.0.1
+	 * @since 1.0.0
 	 */
 	public function wpm_music_notice_meta_box() {
 
@@ -259,7 +236,7 @@ class Wp_Music_Admin {
 	 * Show MEtabox Fields on Music Post
 	 * 
 	 * @author Sandip Baikare
-	 * @since 1.0.1
+	 * @since 1.0.0
 	 */
 	public function music_inforation_meta_box_callback($post){
 		// Add a nonce field so we can check for it later.
@@ -316,6 +293,12 @@ class Wp_Music_Admin {
 		<?php
 	}
 
+	/**
+	 * Save Music custom meta into the custom table
+	 * 
+	 * @author Sandip Baikare
+	 * @since 1.0.1
+	 */
 	public function save_music_info_meta_box_data( $post_id ) {
 		
 		// Return if post type is not Music
@@ -391,8 +374,6 @@ class Wp_Music_Admin {
 				)
 			);
 		}else{
-			//echo "Music ".$music_count;
-			//die;
 			$wpdb->insert( 
 				$wpdb->prefix.'music_meta', 
 				array(
@@ -405,20 +386,19 @@ class Wp_Music_Admin {
 					'price' 			=> $price,
 				)
 			);
-			//echo $wpdb->insert_id; die;
-			
 		}
 	}
 	/**
-	 * Delete music meta on post delete
+	 * Delete music metadata from custom table on music post delete
 	 * 
 	 * @author Sandip Baikare
-	 * @since 1.0.1
+	 * @since 1.0.0
 	 */
 	public function wpm_delete_music_meta( $post_id ){
 		// return if post type is not music
 		if ( get_post_type( $post_id ) != 'music' )
 			return; 
+
 		// check if user can delete post
 		if( current_user_can('delete_post', $post_id) ){
 			global $wpdb;
