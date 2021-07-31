@@ -28,7 +28,7 @@ WP Music Plugin helps user to add the music list with music information. It has 
 
 ## Installation
 
-1. Upload the `wp-music` directory to your `/wp-content/plugins/` directory
+1. Upload the `wp-musics` directory to your `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Visit the 'Music > Settings' menu item in your admin sidebar to update the setting
 
