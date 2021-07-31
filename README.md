@@ -10,8 +10,19 @@ WP Music Plugin helps user to add the music list with music information. It has 
 * Created a custom meta box to save music meta information like Composer Name, Publisher, Year of recording, Additional Contributors, URL, Price, etc.
 * Created a custom meta table and save all music meta information in that table.
 * Created a custom admin settings page for Music. Settings option should contain options for changing currency, number of musics displayed per page, etc. Settings menu should be displayed under the Musics menu.
-* Created a shortcode [music] to display the music(s) information. Shortcode attributes should genre, show_title.
+* Created a shortcode `[music]` to display the music(s) information. Shortcode attributes should genre, show_title.
 
+### Extra Enhancemnets
+* Added music display view, List view and Grid view
+* Added feature to show/hide the title for the shortcode
+* Added numbered pagination in shortcode  
+
+
+## Future Enhancements
+* Music custom Template Structure
+* Improvements in the page meta fields
+* Improvements payment integration
+* Orders, transaction history, users, etc
 
 ## Installation
 
