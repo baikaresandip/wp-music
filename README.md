@@ -16,10 +16,12 @@ WP Music Plugin helps user to add the music list with music information. It has 
 * Added music display view, List view and Grid view
 * Added feature to show/hide the title for the shortcode
 * Added numbered pagination in shortcode  
+* Update the default setting on the plugin activation  
 
 
 ## Future Enhancements
 * Music custom Template Structure
+* Setting for thumbnail image
 * Improvements in the page meta fields
 * Improvements payment integration
 * Orders, transaction history, users, etc
